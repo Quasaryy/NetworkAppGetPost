@@ -17,6 +17,7 @@ class MainCollectionViewController: UICollectionViewController {
     
     // MARK: Properties
     let requests = RequestTypes.allCases
+    var users = User(results: [])
     
     // MARK: UICollectionViewDataSource
     
@@ -38,8 +39,14 @@ class MainCollectionViewController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard indexPath.item == 1 else { return }
-        showAlert()
+        let request = requests[indexPath.item]
+        
+        switch request {
+        case .get:
+            showAlert(title: "Success", message: "Model sucessfull encoded and decoded with POST request.")
+        case .post:
+            postRequest()
+        }
     }
     
 }
@@ -63,8 +70,8 @@ extension MainCollectionViewController: UICollectionViewDelegateFlowLayout {
 
 extension MainCollectionViewController {
     // MARK: Alert Controller
-    private func showAlert() {
-        let alert = UIAlertController(title: "Success", message: "Model sucessfull encoded and decoded with POST request.", preferredStyle: .alert)
+    private func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let buttoonOK = UIAlertAction(title: "OK", style: .default)
         alert.addAction(buttoonOK)
         present(alert, animated: true)
@@ -73,12 +80,48 @@ extension MainCollectionViewController {
     // MARK: Post request
     private func postRequest() {
         guard let url = URL(string: "https://jsonplaceholder.typicode.com/posts") else { return }
+        
+        users.results.append(Result(
+            name: Name(title: "Ms",
+                       first: "Eva",
+                       last: "English"),
+            picture: Picture(large: "https://randomuser.me/api/portraits/med/women/44.jpg",
+                             medium: "https://randomuser.me/api/portraits/med/women/44.jpg",
+                             thumbnail: "https://randomuser.me/api/portraits/med/women/44.jpg")))
+        
+        let userData = try? JSONEncoder().encode(users)
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = userData
         
         URLSession.shared.dataTask(with: request) { data, response, error in
-            <#code#>
-        }
+            if let error = error {
+                print(error.localizedDescription)
+                DispatchQueue.main.async {
+                    self.showAlert(title: "Error", message: "\(error.localizedDescription)")
+                    return
+                }
+            }
+            
+            if let data = data, let response = response as? HTTPURLResponse {
+                do {
+                    self.users = try JSONDecoder().decode(User.self, from: data)
+                    print(response.statusCode)
+
+                    DispatchQueue.main.async {
+                        self.showAlert(title: "Success", message: "Model sucessfull encoded and decoded with POST request with status code: \(response.statusCode)")
+                    }
+                }
+                catch {
+                    print(error.localizedDescription)
+                    DispatchQueue.main.async {
+                        self.showAlert(title: "Decoding Error", message: error.localizedDescription)
+                    }
+                }
+                
+            }
+        }.resume()
     }
     
 }

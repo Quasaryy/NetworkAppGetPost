@@ -9,20 +9,20 @@ import Foundation
 
 // MARK: - User
 struct User: Codable {
-    let results: [Result]
+    var results: [Result]
 }
 
 // MARK: - Result
 struct Result: Codable {
-    let name: Name
-    let picture: Picture
+    var name: Name
+    var picture: Picture
 }
 
 
 
 // MARK: - Name
 struct Name: Codable {
-    let title, first, last: String
+    var title, first, last: String
     var fullName: String {
         return "\(title) \(first) \(last)"
     }
@@ -30,5 +30,5 @@ struct Name: Codable {
 
 // MARK: - Picture
 struct Picture: Codable {
-    let large, medium, thumbnail: String
+    var large, medium, thumbnail: String
 }
