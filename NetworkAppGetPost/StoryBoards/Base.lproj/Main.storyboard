@@ -12,19 +12,19 @@
         <!--Request Types-->
         <scene sceneID="1p4-JH-sbP">
             <objects>
-                <collectionViewController id="z56-zH-IDi" customClass="MainCollectionViewController" customModule="NetworkAppGetPost" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController id="z56-zH-IDi" customClass="CollectionViewController" customModule="NetworkAppGetPost" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="Au6-d6-kla">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="hZF-ql-5zC">
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="hZF-ql-5zC">
                             <size key="itemSize" width="128" height="128"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="9yR-sd-Mfm" customClass="CollectionViewCell" customModule="NetworkAppGetPost" customModuleProvider="target">
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="requestTypesCell" id="9yR-sd-Mfm" customClass="RequestTypesCollectionViewCell" customModule="NetworkAppGetPost" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="XrW-LM-w11">
@@ -45,6 +45,28 @@
                                 </collectionViewCellContentView>
                                 <connections>
                                     <outlet property="requestTypeLabel" destination="QDA-B4-Cdv" id="3sg-QM-6WA"/>
+                                </connections>
+                            </collectionViewCell>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="usersCell" id="gQQ-9H-wUU" customClass="UsersCollectionViewCell" customModule="NetworkAppGetPost" customModuleProvider="target">
+                                <rect key="frame" x="247" y="0.0" width="128" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="VL8-bI-Xvs">
+                                    <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8Ob-7J-anz">
+                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                        </imageView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="8Ob-7J-anz" firstAttribute="top" secondItem="VL8-bI-Xvs" secondAttribute="top" id="3Iz-YX-K8K"/>
+                                        <constraint firstAttribute="bottom" secondItem="8Ob-7J-anz" secondAttribute="bottom" id="Q7O-1z-DBc"/>
+                                        <constraint firstAttribute="trailing" secondItem="8Ob-7J-anz" secondAttribute="trailing" id="f1n-C1-7iG"/>
+                                        <constraint firstItem="8Ob-7J-anz" firstAttribute="leading" secondItem="VL8-bI-Xvs" secondAttribute="leading" id="n3J-XD-tNO"/>
+                                    </constraints>
+                                </collectionViewCellContentView>
+                                <connections>
+                                    <outlet property="userImage" destination="8Ob-7J-anz" id="pDj-6y-Cah"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
