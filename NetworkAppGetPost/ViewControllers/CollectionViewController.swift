@@ -115,14 +115,6 @@ extension CollectionViewController {
     private func postRequest() {
         guard let url = URL(string: "https://jsonplaceholder.typicode.com/posts") else { return }
         
-        users.results.append(Result(
-            name: Name(title: "Ms",
-                       first: "Eva",
-                       last: "English"),
-            picture: Picture(large: "https://randomuser.me/api/portraits/med/women/44.jpg",
-                             medium: "https://randomuser.me/api/portraits/med/women/44.jpg",
-                             thumbnail: "https://randomuser.me/api/portraits/med/women/44.jpg")))
-        
         let userData = try? JSONEncoder().encode(users)
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -142,9 +134,10 @@ extension CollectionViewController {
                 do {
                     self.users = try JSONDecoder().decode(User.self, from: data)
                     print(response.statusCode)
+                    print(self.users)
                     
                     DispatchQueue.main.async {
-                        self.showAlert(title: "Success", message: "Model sucessfully encoded and decoded with POST request with status code: \(response.statusCode)")
+                        self.showAlert(title: "Success", message: "Model sucessfully encoded and decoded with POST request with status code: \(response.statusCode) and users count: \(self.users.results.count)")
                     }
                 }
                 catch {
